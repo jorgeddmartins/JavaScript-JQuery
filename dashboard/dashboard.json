@@ -1,0 +1,54 @@
+{
+
+	"mainChart": [
+
+		{
+			"id": 0,
+			"widthCl": "topChart",
+			"title": "Last 7 Days Sales"
+		},
+		{
+			"id": 1,
+			"widthCl": "topChart",
+			"title": "Title 2"
+		},
+		{
+			"id": 2,
+			"widthCl": "topChart",
+			"title": "Title 3"
+		},
+		{
+			"id": 3,
+			"widthCl": "topChart",
+			"title": "Title 4"
+		},
+		{
+			"id": 4,
+			"widthCl": "topChart",
+			"title": "Title 5"
+		},
+		{
+			"id": 5,
+			"widthCl": "bottomChart50",
+			"title": "Title 6"
+		},
+		{
+			"id": 6,
+			"widthCl": "topChart",
+			"title": "Title 7"
+		}
+	],
+
+	"sundayChartsOrange": [{ "today": 50 }],
+	"sundayChartsGreen": [{ "today": 30 }],
+
+	"mondayChartsOrange": [{ "today": 20 }],
+	"mondayChartsGreen": [{ "today": 70 }],
+
+	"tuesdayChartsOrange": [{ "today": 40 }],
+	"tuesdayChartsGreen": [{ "today": 60 }],
+
+	"wednesdayChartsOrange": [{ "today": 55 }],
+	"wednesdayChartsGreen": [{ "today": 35 }]
+
+}
