@@ -1,0 +1,91 @@
+{
+	"dashColumn": [
+
+		{
+			"id": 0,
+			"widthClass": "width24",
+			"titleName": "Yesterday Leads",
+			"productClass": "half-chart-health",
+			"dataHealth": 90
+		},
+		{
+			"id": 1,
+			"widthClass": "width24",
+			"titleName": "Yesterday Leads",
+			"productClass": "half-chart-life"
+		},
+		{
+			"id": 2,
+			"widthClass": "width24 columnMediumTrans",
+			"titleName": "",
+			"productClass": ""
+		},
+		{
+			"id": 3,
+			"widthClass": "width24",
+			"titleName": "All Leads Week",
+			"productClass": ""
+		},
+		{
+			"id": 4,
+			"widthClass": "width32 bigC",
+			"titleName": "Chart 4 Big",
+			"productClass": ""
+		},
+		{
+			"id": 5,
+			"widthClass": "width32 bigC",
+			"titleName": "Chart 5 Big",
+			"productClass": ""
+		},
+		{
+			"id": 6,
+			"widthClass": "width32 bigC",
+			"titleName": "Chart 6 Big",
+			"productClass": ""
+		}
+
+	],
+
+
+	"subdashColumn": [
+
+		{
+			"id": 1,
+			"marginClass": "subColumnMargin",
+			"mainSubClass": "",
+			"tittleName": "Yesterday Leads"
+		},
+		{
+			"id": 2,
+			"marginClass": "subColumnMargin",
+			"mainSubClass": "",
+			"tittleName": "Yesterday Leads"
+		},
+		{
+			"id": 3,
+			"marginClass": "",
+			"mainSubClass": "",
+			"tittleName": "Yesterday Leads"
+		},
+		{
+			"id": 4,
+			"marginClass": "",
+			"mainSubClass": "",
+			"tittleName": "Yesterday Leads"
+		}
+	],
+	
+
+	"chartsVals": [
+
+		{
+			"classVal": "half-chart-health",
+			"dataVal": 90
+		},
+		{
+			"classVal": "half-chart-life",
+			"dataVal": 35
+		}
+	]
+}
