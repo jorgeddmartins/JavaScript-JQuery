@@ -1,6 +1,6 @@
 
-@import '/xampp/htdocs/projects/assets/Conv-Sass/conv-sass1.0.0/assets/sass/_conv_variables';
-@import '/xampp/htdocs/projects/assets/Conv-Sass/conv-sass1.0.0/assets/sass/_conv_mixins';
+@import '_conv_variables';
+@import '_conv_mixins';
 
 * {
 	margin: $null-conv;
