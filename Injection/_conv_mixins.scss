@@ -1,0 +1,1845 @@
+// Mixins
+
+// Responsive Font Size
+@mixin responsive-font($responsive, $min, $max: false, $fallback: false) {
+    $responsive-unitless: $responsive / ($responsive - $responsive + 1);
+    $dimension: if(unit($responsive)=='vh', 'height', 'width');
+    $min-breakpoint: $min / $responsive-unitless * 100;
+    @media (max-#{$dimension}: #{$min-breakpoint}) {
+        font-size: $min;
+    }
+    @if $max {
+        $max-breakpoint: $max / $responsive-unitless * 100;
+        @media (min-#{$dimension}: #{$max-breakpoint}) {
+            font-size: $max;
+        }
+    }
+    @if $fallback {
+        font-size: $fallback;
+    }
+    font-size: $responsive;
+}
+
+// Avatar 
+@mixin avatar($flt: $fltright, $disp: $dispblk) {
+    .avatar {
+        width: $double-conv-smll * 2;
+        height: $double-conv-smll * 2;
+        display: $disp;
+        margin-left: $double-conv-smll;
+        float: $flt;
+        @include border-radius($half-max-width);
+        img {
+            @include border-radius($half-max-width);
+            width: $max-width;
+            height: $max-conv-height;
+        }
+        @include smartphones {
+            margin-left: $small-fix-05 + 1;
+        }
+    }
+}
+
+@mixin selectarrow {
+    .mobileSelectArrow {
+        position: absolute;
+        top: $small-fix-17;
+        right: $small-fix-10;
+        @include transform($rotate-180); // 180deg
+        border-bottom: $small-fix-05 + 1 solid #333;
+        border-left: $small-fix-05 + 1 solid transparent;
+        border-right: $small-fix-05 + 1 solid transparent;
+        z-index: $double-zindex-value;
+    }
+}
+
+@mixin columnreserve($revclom: column-reverse) {
+    // Reverse Position the bloks inside an element bottom to top
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-flow: $revclom;
+    flex-flow: $revclom;
+}
+
+@mixin appearance($none-conv: none) {
+    appearance: #{$none-conv};
+    -webkit-appearance: #{$none-conv};
+    -moz-appearance: #{$none-conv};
+}
+
+// Border Radius
+@mixin border-radius($radius) {
+    -webkit-border-radius: #{$radius};
+    -moz-border-radius: #{$radius};
+    -ms-border-radius: #{$radius};
+    border-radius: #{$radius};
+}
+
+// Box Shadow 1 Element
+@mixin box-shadow($boxvalue) {
+    -webkit-box-shadow: #{$boxvalue};
+    -moz-box-shadow: #{$boxvalue};
+    box-shadow: #{$boxvalue};
+}
+
+// Box Shadow 2 Elements
+@mixin box-shadowdouble($boxvalue, $boxvalue) {
+    -webkit-box-shadow: #{$boxvalue}, #{$boxvalue};
+    -moz-box-shadow: #{$boxvalue}, #{$boxvalue};
+    box-shadow: #{$boxvalue}, #{$boxvalue};
+}
+
+@mixin columnmedium($marg: $small-fix-03 + 1 + 0.93, $posi: relative) {
+    .column-medium {
+        float: $fltleft;
+        background: $white;
+        border: $small-fix-01 solid $gray-smooth;
+        border-bottom: $small-fix-01 solid $gray-darkwater;
+        @include border-radius($small-fix-03);
+        // margin: $marg;
+        position: $posi;
+        img {
+            @include transition(all $Sec-07 ease-in-out);
+        }
+        &:hover {
+            img {
+                @include tranformscale(1.4);
+                @include transition(all $Sec-07 ease-in-out);
+            }
+        }
+    }
+}
+
+// White Square
+@mixin flatsquare($white-col: $white, $bord: $small-fix-01 solid $gray-water, $bord-bott: $small-fix-01 solid $gray-darkwater, $radius: $conv-smll / 2, $default-margpadd: $conv-smll, $paddtop: $conv-smll + 2, $posrel: relative) {
+    background: $white-col;
+    border: $bord;
+    border-bottom: $bord-bott;
+    @include border-radius($radius);
+    margin-bottom: $default-margpadd;
+    padding-right: $default-margpadd;
+    padding-left: $default-margpadd;
+    padding-top: $paddtop;
+    padding-bottom: $small-fix-07;
+    position: $posrel;
+}
+
+// Form Article
+@mixin formarticle($m-height: $small-fix-60 - 1, $left-fl: $fltleft, $marg: 2.5px, $posrel: relative) {
+    min-height: $m-height;
+    float: $left-fl;
+    margin: $marg;
+    position: $posrel;
+}
+
+// Conv Input
+@mixin convinput($width: $max-width, $height: auto, $ft-size: $conv-smll + 6, $ft-weight: bold, $txt-trans: uppercase, $bord: $small-fix-01 solid $gray-smooth, $box-shad: none, $paddlfrt: $conv-smll + 2, $posabs: absolute, $null: $null-conv, $white-col: $white, $padd-top: $double-conv-smll + 9, $padd-bott: $conv-smll - 2, $trasi: all .5s ease-in-out) {
+    width: $width;
+    max-width: $width;
+    height: $height;
+    font-size: $ft-size;
+    font-weight: $ft-weight;
+    text-transform: $txt-trans;
+    @include border-radius($null);
+    border: $bord;
+    box-shadow: $box-shad;
+    padding: $null;
+    padding-left: $paddlfrt;
+    padding-right: $paddlfrt;
+    position: $posabs;
+    top: $null;
+    left: $null;
+    background: $white-col;
+    padding-top: $padd-top;
+    padding-bottom: $padd-bott;
+    @include transition($trasi);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    @include appearance();
+}
+
+// Conv Input Focus
+@mixin convinputfocus($backdk: $backdash, $bor-col: $gray-smooth, $box-shad: none) {
+    border-color: $bor-col;
+    box-shadow: $box-shad;
+}
+
+// Conv Form
+@mixin convform($disp: $dispinblk, $width: $max-width, $null: $null-conv) {
+    display: $disp;
+    width: $width;
+    margin-bottom: $null;
+}
+
+@mixin qinexform($lft: left, $width: $max-width, $null: $null-conv) {
+    float: $lft;
+    width: $width;
+    margin-bottom: $null;
+}
+
+// Conv Form Label
+@mixin convlabel($width: $max-width, $paddlft: $small-fix-10 + 2, $ft-size: $small-fix-10 + 1, $txt-trans: uppercase, $colr: $gray, $post: relative, $zindex: $zindex-smll-01, $top: $small-fix-07) {
+    //width: $table-max-75; // 75%
+    padding-left: $paddlft;
+    text-transform: $txt-trans;
+    z-index: 1000; //$zindex
+    top: $top;
+    border: $null-conv;
+    text-align: left;
+    background: $none-conv;
+    &:focus {
+        outline: $null-conv;
+    }
+}
+
+// Flash Block
+@mixin flashblk($post: fixed, $null: $null-conv, $width: $max-width, $paddtp: $medium-A11 + 1, $passbott: $medium-A11, $zindex: $zindex-value * 10, $disp: $dispnone) {
+    position: $post;
+    left: $null;
+    top: $null;
+    width: $width;
+    height: $width;
+    padding: $null;
+    padding-top: $paddtp;
+    padding-bottom: $passbott;
+    z-index: 99999999999999999999;
+    display: $disp;
+}
+
+// Flash Block text
+@mixin flashblktxt($disp: $dispblk, $txtalign: center, $ft-weight: bold, $back: rgba(250, 250, 250, 0.85), $ft-size: $grid-small-based + $small-fix-20, $colr: $primary-color, $ft-stl: italic, $txt-trans: uppercase, $ltt-spac: -12px, $padd: $small-B-02) {
+    display: $disp;
+    text-align: $txtalign;
+    font-weight: $ft-weight;
+    background: $back;
+    font-size: $ft-size;
+    color: $colr;
+    font-style: $ft-stl;
+    text-transform: $txt-trans;
+    letter-spacing: $ltt-spac;
+    padding: $padd;
+}
+
+// Check button Medium
+@mixin checkbtn($disp: $dispinblk, $flt: $fltright, $dispbl: $dispblk, $postrel: relative, $postabs: absolute) {
+    .subscribe {
+        display: $disp;
+        height: $small-fix-30 + $small-fix-03;
+        position: $postrel;
+        vertical-align: middle;
+        width: $small-fix-50 + $small-fix-03;
+        float: $flt;
+        top: $conv-smll + 2;
+        .subback {
+            background-color: #0A9A7A;
+            @include border-radius($small-fix-10 * 2);
+            height: $large-A20;
+            position: $postabs;
+            width: $large-A20;
+            top: $null-conv;
+            left: $null-conv;
+            @include transition($halfSec ease-in-out);
+        }
+        label {
+            background: $white;
+            border-radius: $large-A20;
+            box-shadow: $null-conv $small-fix-01 $small-fix-03 rgba(0, 0, 0, 0.4);
+            height: $small-fix-30 + 1;
+            position: $postabs;
+            width: $small-fix-30 + 1;
+            display: $dispbl;
+            @include transition(all $Sec-03 ease-in-out);
+            cursor: pointer;
+            top: $small-fix-01;
+            left: $double-conv-smll + 1;
+            z-index: $zindex-smll-01;
+        }
+        input[type="checkbox"]#IsSubscriber {
+            display: $dispnone;
+        }
+        input[type=checkbox]#IsSubscriber:checked ~ label[for="IsSubscriber"] {
+            left: $small-fix-01 + 1;
+        }
+        input[type=checkbox]#IsSubscriber:checked ~ div.subback {
+            background: #cc0000; // red
+        }
+    }
+}
+
+// search Button Submit
+@mixin searchbtn($postrel: relative, $flt: $fltleft, $postabs: absolute, $backtrans: transparent) {
+    .submit-lead-search {
+        width: $small-fix-30 + 6;
+        height: $small-fix-30 + 6;
+        position: $postrel;
+        float: $flt;
+        .circle-s {
+            width: $conv-smll + 5;
+            height: $conv-smll + 5;
+            border: $small-fix-01 + 1 solid $gray;
+            @include border-radius($large-A10);
+            position: $postabs;
+            top: $conv-smll - 1;
+            left: $conv-smll - 3;
+        }
+        .trace-s {
+            width: $conv-smll - 4;
+            height: $small-fix-01;
+            position: $postabs;
+            border: $small-fix-01 solid $gray;
+            bottom: $conv-smll + 1;
+            right: $conv-smll + 1;
+            transform: rotate($rotate-45);
+        }
+        .sub-lead-search {
+            position: $postabs;
+            top: $null-conv;
+            left: $null-conv;
+            width: $large-A20;
+            height: $large-A20;
+            background: $backtrans;
+            border: $null-conv;
+            padding: $null-conv;
+            &:focus {
+                outline: $null-conv;
+            }
+        }
+    }
+}
+
+@mixin notallowed($null: none, $minusone: -1, $back: #f9f9f9, $clr: $black, $notall: not-allowed, $opac: 0.6) {
+    pointer-events: $null;
+    tab-index: $minusone;
+    background: $back;
+    color: $clr;
+    cursor: $notall;
+    opacity: $opac;
+}
+
+// Border Radius
+@mixin marginrow($margin: $null-conv) {
+    margin-right: $margin;
+    margin-left: $margin;
+}
+
+// Paddings and Margins
+@mixin paddingrow($padding: $main-grid-padd) {
+    padding-right: $padding;
+    padding-left: $padding;
+}
+
+// Text Ellipsis
+@mixin ellipsis($hide: hidden, $ellip: ellipsis, $norw: nowrap) {
+    overflow: $hide;
+    text-overflow: $ellip;
+    white-space: $norw;
+}
+
+// Button Sizes
+@mixin buttonactive60($width: $small-fix-60, $back: $gray-smooth, $colour: $white, $height: $max-conv-height, $position: absolute, $top: $null-conv) {
+    width: $width;
+    background: $back;
+    color: $colour;
+    height: $height;
+    position: $position;
+    top: $top;
+}
+
+// Rotations
+@mixin transform($value) {
+    transform: rotate($value);
+    -webkit-transform: rotate($value);
+    -moz-transform: rotate($value);
+    -o-transform: rotate($value);
+}
+
+// Transform RotateZ
+@mixin transformY($value) {
+    -webkit-transform: rotateY($value);
+    -moz-transform: rotateY($value);
+    -o-transform: rotateY($value);
+    transform: rotateY($value);
+}
+
+// Trandform rotateX
+@mixin transformX($value) {
+    -webkit-transform: rotateX($value);
+    -moz-transform: rotateX($value);
+    -o-transform: rotateX($value);
+    transform: rotateX($value);
+}
+
+// Transform rotateZ
+@mixin transformZ($value) {
+    -webkit-transform: rotateZ($value);
+    -moz-transform: rotateZ($value);
+    -o-transform: rotateZ($value);
+    transform: rotateZ($value);
+}
+
+// Transform Scale
+@mixin tranformscale($value) {
+    transform: scale($value);
+    -webkit-transform: scale($value);
+    -moz-transform: scale($value);
+    -o-transform: scale($value);
+}
+
+// Transform Scale Two Values
+@mixin tranformscaleTwo($value, $value) {
+    transform: scale($value, $value);
+    -webkit-transform: scale($value, $value);
+    -moz-transform: scale($value, $value);
+    -o-transform: scale($value, $value);
+}
+
+// Transform TranslateX
+@mixin transformtranslatex($value) {
+    transform: translateX($value);
+    -webkit-transform: translateX($value);
+    -ms-transform: translateX($value);
+    -moz-transform: translateX($value);
+}
+
+// Transform Translate3D
+@mixin transformtranslate3d($value, $value, $value) {
+    -webkit-transform: translate3d($value, $value, $value);
+    -moz-transform: translate3d($value, $value, $value);
+    -ms-transform: translate3d($value, $value, $value);
+    -o-transform: translate3d($value, $value, $value);
+    transform: translate3d($value, $value, $value);
+}
+
+// Transform Style
+@mixin transformstyle($value) {
+    -webkit-transform-style: #{$value};
+    -moz-transform-style: #{$value};
+    -o-transform-style: #{$value};
+    transform-style: #{$value};
+}
+
+// Transitions
+@mixin transition($value) {
+    transition: ($value);
+    -webkit-transition: ($value);
+    -moz-transition: ($value);
+    -o-transition: ($value);
+}
+
+// Animations
+@mixin animation($value) {
+    -webkit-animation: #{$value};
+    -moz-animation: #{$value};
+    -o-animation: #{$value};
+    animation: #{$value};
+}
+
+@mixin animationdelay($value) {
+    -webkit-animation-delay: #{$value};
+    -moz-animation-delay: #{$value};
+    animation-delay: #{$value};
+}
+
+@mixin animpaused($pause: paused) {
+    animation-play-state: #{$pause};
+    -moz-animation-play-state: #{$pause};
+    -webkit-animation-play-state: #{$pause};
+    -o-animation-play-state: #{$pause};
+}
+
+@mixin centermiddleabsolute($aut: auto, $abso: absolute) {
+    position: $abso;
+    left: $null-conv;
+    right: $null-conv;
+    margin-left: $aut;
+    margin-right: $aut;
+}
+
+@mixin borderdefault($border: solid $small-fix-01 $border-default-box, $borderbtt: $small-fix-01 + $small-fix-01 solid $border-default-box, $bxshadow: $null-conv $small-fix-03 + 1 $small-fix-05 $border-default-box) {
+    border: $border;
+    border-bottom: $borderbtt;
+    -webkit-box-shadow: $bxshadow;
+    box-shadow: $bxshadow;
+}
+
+@mixin borderimg($value) {
+    -moz-border-image: #{$value};
+    -webkit-border-image: #{$value};
+    -o-border-image: #{$value};
+    border-image: #{$value};
+}
+
+// Font Icons
+@mixin fontAwesome($posit: absolute, $foFam: FontAwesome) {
+    position: $posit;
+    font-family: $foFam;
+}
+
+// Input File Style Template
+@mixin inputFile {
+    .blue-btn {
+        background: transparent;
+        border: solid $small-fix-01 #1fadcf;
+        @include border-radius($null-conv);
+        color: #1fadcf;
+        font-size: $small-fix-13 + 1;
+        margin-bottom: $small-fix-20;
+        padding: $small-fix-10 $small-fix-20;
+        margin: $null-conv;
+        @include transition($Sec-03);
+        &:hover, 
+        &:active, 
+        &:focus {
+            background: #1fadcf;
+            color: $white;
+        }
+        .fileUpload {
+            position: relative;
+            overflow: hidden;
+            height: 43px;
+            margin-top: $null-conv;
+        }
+    }
+    .fileUpload {
+        position: relative;
+        float: left;
+        input.uploadlogo {
+            position: absolute;
+            top: $null-conv;
+            right: $null-conv;
+            margin: $null-conv;
+            padding: $null-conv;
+            font-size: $small-fix-20;
+            cursor: pointer;
+            opacity: $null-conv;
+            filter: alpha(opacity=0);
+            width: $max-conv-width;
+            height: 42px;
+        }
+    }
+
+    // Chrome fix
+    input::-webkit-file-upload-button {
+      cursor: pointer !important;
+      height: 42px;
+      width: $max-conv-width;
+    }
+}
+
+// Flying Drop Down
+@mixin FlyDrop {
+    .dropKF {
+        position: absolute;
+        width: 176px; // 190px 178px
+        background: #fafafa;
+        z-index: 1000;
+        @include box-shadow(0 0 $small-fix-07 0 rgba(0, 0, 0, 0.2));
+        max-height: 240px;
+        overflow: auto;
+        display: none;
+        &:before {
+            position: absolute;
+            content: "";
+            vertical-align: middle;
+            width: $null-conv;
+            height: $null-conv;
+            border-left: $small-fix-05 solid transparent;
+            border-right: $small-fix-05 solid transparent;
+            top: -7px;
+            right: $null-conv;
+            left: $null-conv;
+            margin-left: auto;
+            margin-right: auto;
+            border-bottom: $small-fix-05 solid #ccc;
+            @include transform($rotateNull);
+            @include transition($Sec-04);
+            z-index: 30;
+        }
+        .FDopt {
+            width: $max-conv-width;
+            padding: $small-fix-07;
+            padding-left: $small-fix-13 + 1;
+            float: left;
+            font-size: $small-fix-10 + 1;
+            font-weight: bold;
+            cursor: pointer;
+            border-bottom: $small-fix-01 solid #eee;
+            @include transition($Sec-03);
+            &:hover {
+                background: $white;
+            }
+        }
+    }
+    .thisAfter {
+        &:after {
+            position: absolute;
+            content: "";
+            vertical-align: middle;
+            width: $null-conv;
+            height: $null-conv;
+            border-left: $small-fix-05 solid transparent;
+            border-right: $small-fix-05 solid transparent;
+            top: $small-fix-30;
+            right: $small-fix-13 + 1;
+            border-bottom: $small-fix-05 solid $black;
+            @include transform($rotate-180);
+            cursor: pointer;
+            @include transition($Sec-04);
+        }
+
+        .k-select-dropdown { cursor: pointer !important; }
+    }
+    .rotateDrp0 {
+        &:after { @include transform($rotateNull); }
+    }
+}
+
+// Dots ico and modal
+@mixin dotmodal($rel: relative, $abso: absolute, $transp: transparent, $cnt: center, $backg: $table-tr-hover) {
+    .dots_ico {
+        width: $small-fix-30; // 30px
+        height: $small-fix-20 + 1; // 21px
+        background: url(../../img/dashboard/more.svg) no-repeat;
+        background-size: $small-fix-20 + $small-fix-05 + 1; // 26px
+        float: $fltleft;
+        position: $rel;
+        left: $small-fix-07 + 1; // 8px
+    }
+    .dots-dropdown {
+        width: $width-conv-fix; // 100px
+        position: $abso;
+        top: $small-fix-40 + $small-fix-03 + 1; // 44px
+        right: $null-conv;
+        background: $white;
+        border: $small-fix-01 solid $gray-smooth;
+        border-bottom: $small-fix-01 solid $gray-darkwater;
+        @include border-radius($small-fix-01 + $small-fix-01);
+        z-index: $double-zindex-value;
+        display: $none-conv;
+        &:after {
+            content: '';
+            width: $small-fix-15; // 15px
+            height: $small-fix-15; // 15px
+            background: $white;
+            border: $small-fix-01 solid $gray-smooth;
+            border-bottom: $transp;
+            border-right: $transp;
+            position: $abso;
+            z-index: $zindex-smll-01;
+            top: -8px;
+            right: $small-fix-20 - 2; // 18px
+            @include transform($rotate-45); // 45deg
+        }
+        .dots-dropdown-option {
+            padding: $small-fix-10 + 2; // 12px
+            color: $gray-dark;
+            font-size: $small-fix-15 - 1; // 14px
+            text-decoration: $none-conv;
+            text-align: $cnt;
+            width: $max-conv-width;
+            float: $fltleft;
+            position: $rel;
+            z-index: $zindex-smll-02;
+            @include transition(all $halfSec ease-in-out);
+            border-bottom: $small-fix-01 dashed $gray-smooth;
+            &:hover {
+                background: $backg;
+                color: $primary-color;
+            }
+            &:last-child {
+                border-bottom: $null-conv;
+            }
+        }
+    }
+}
+
+// Details More
+@mixin moretemplate($rel: relative, $abso: absolute) {
+    .more-details {
+        width: $max-conv-width;
+        display: $dispinblk;
+        top: $small-fix-10 + $small-fix-03;
+        position: $rel;
+        @include mediumtablet {
+            margin-top: $small-fix-10 + $small-fix-03;
+            top: $none-conv;
+            padding: $small-fix-20;
+        }
+        .ico-plus-round,
+        .ico-minus-round {
+            position: $abso;
+            left: $small-fix-40;
+            top: $null-conv;
+            width: $small-fix-20 + $small-fix-03;
+            height: $small-fix-20 + $small-fix-03;
+            z-index: $zindex-smll-01;
+        }
+        .ico-plus-round {
+            background: url(../../img/dashboard/plus.svg) no-repeat;
+            background-size: $small-fix-20 + $small-fix-03;
+        }
+        .ico-minus-round {
+            background: url(../../img/dashboard/minus.svg) no-repeat;
+            background-size: $small-fix-20 + $small-fix-03;
+            display: $none-conv;
+        }
+        .txt-pus-round,
+        .txt-minus-round {
+            position: $abso;
+            left: $small-fix-70 + $small-fix-07 + 1; // 78px
+            top: $small-fix-01 + $small-fix-01 / 2; // 1.5px
+            color: $gray-dark;
+            z-index: $zindex-smll-01;
+        }
+        .txt-minus-round {
+            display: $none-conv;
+        }
+    }
+}
+
+// Spinner
+@mixin spinload($fixd: fixed, $abso: absolute, $aut: auto) {
+    .spin-floor {
+        position: $fixd;
+        top: $null-conv;
+        left: $null-conv;
+        width: $max-conv-width;
+        height: $max-conv-height;
+        background: rgba(245, 245, 245, 0.9);
+        z-index: $double-zindex-value * 5;
+        display: $none-conv;
+        .spin-load {
+            width: $small-fix-70;
+            height: $small-fix-70;
+            border: $small-fix-07 + 1 solid $rgba-black-02;
+            border-right: $small-fix-07 + 1 solid transparent;
+            position: $abso;
+            left: $null-conv;
+            right: $null-conv;
+            top: $medium-A14; // 40%
+            margin-left: $aut;
+            margin-right: $aut;
+            @include border-radius($max-conv-width / 2);
+            @include animation(spin-load $oneSec linear infinite);
+        }
+    }
+
+    @include keyframes(spin-load) {
+
+        0% { transform: rotate($rotateNull) }
+
+        100% { transform: rotate(360deg) }
+    }
+}
+
+// Blur Effects
+@mixin blur($value) { // px value Ex: 5px
+    filter: blur($value);
+    -webkit-filter: blur($value);
+    -moz-filter: blur($value);
+    -o-filter: blur($value);
+    -ms-filter: blur($value);
+}
+
+// GrayScale  Effects
+@mixin grayscale($value) { // % Value Ex: 100%
+    filter: grayscale($value);
+    -webkit-filter: grayscale($value);
+    -moz-filter: grayscale($value);
+    -o-filter: grayscale($value);
+    -ms-filter: grayscale($value);
+}
+
+// Sepia Effects
+@mixin sepia($value) { // % Value Ex: 100%
+    filter: sepia($value);
+    -webkit-filter: sepia($value);
+    -moz-filter: sepia($value);
+    -o-filter: sepia($value);
+    -ms-filter: sepia($value);
+}
+
+// Brightness Effects
+@mixin brightness($value) { // % Value Ex: 100%
+    filter: brightness($value);
+    -webkit-filter: brightness($value);
+    -moz-filter: brightness($value);
+    -o-filter: brightness($value);
+    -ms-filter: brightness($value);
+}
+
+// Contrast Effects
+@mixin contrast($value) { // % Value Ex: 100%
+    filter: contrast($value);
+    -webkit-filter: contrast($value);
+    -moz-filter: contrast($value);
+    -o-filter: contrast($value);
+    -ms-filter: contrast($value);
+}
+
+// Multiples Effects
+@mixin filterMult($value, $value, $value, $value, $value) {
+    filter: blur($value) grayscale($value) sepia($value) brightness($value) contrast($value);
+    -webkit-filter: blur($value) grayscale($value) sepia($value) brightness($value) contrast($value);
+    -moz-filter: blur($value) grayscale($value) sepia($value) brightness($value) contrast($value);
+    -o-filter: blur($value) grayscale($value) sepia($value) brightness($value) contrast($value);
+    -ms-filter: blur($value) grayscale($value) sepia($value) brightness($value) contrast($value);
+}
+
+// Border
+@mixin border($value) {
+    border-top-color: initial;
+    border-top-style: initial;
+    border-top-width: #{$value};
+    border-right-color: initial;
+    border-right-style: initial;
+    border-right-width: #{$value};
+    border-bottom-color: initial;
+    border-bottom-style: initial;
+    border-bottom-width: #{$value};
+    border-left-color: initial;
+    border-left-style: initial;
+    border-left-width: #{$value};
+    border-image-source: initial;
+    border-image-slice: initial;
+    border-image-width: initial;
+    border-image-outset: initial;
+    border-image-repeat: initial;
+}
+
+// Dinamical switch
+@mixin switch {
+    .switch {
+        position: relative;
+        display: inline-block;
+        width: $small-fix-30; // 30px
+        height: $small-fix-20 + 1; // 21px
+        top: $small-fix-02; // -6px
+        margin-bottom: $null-conv;
+        input {
+            display: none;
+        }
+    }
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: $null-conv;
+        left: -1px;
+        right: $null-conv;
+        bottom: $null-conv;
+        background: transparent;
+        border: $small-fix-02 solid #eee;
+        @include transition(.3s);
+        height: $small-fix-17 + 1; // 18px
+        &:before {
+            position: absolute;
+            content: "";
+            width: $small-fix-10 + 2;
+            height: $small-fix-10 + 2;
+            left: $small-fix-01;
+            bottom: 1px; // 1px
+            background: #eee;
+            @include transition(.3s);
+            z-index: 300;
+            padding-left: $null-conv !important;
+        }
+        .switchBtn {
+            text-transform: uppercase;
+            &:after {
+                content: "Off";
+                position: absolute;
+                right: $small-fix-05 + 1;
+                top: $small-fix-10 - 1;
+                font-size: $small-fix-10;
+                color: #999;
+            }
+            &:before {
+                content: "On";
+                position: absolute;
+                left: $small-fix-07;
+                top: $small-fix-10 - 1;
+                font-size: $small-fix-10 + 1;
+                color: $white;
+            }
+        }
+    }
+
+    input:checked + .slider {
+        border: $small-fix-02 solid #0A9A7A;
+        &:before {
+
+            @include transformtranslatex($small-fix-10 + 2);
+            background: #0A9A7A;
+        }
+    }
+}
+
+// Form Inputs Structure(Simple)
+@mixin formInput {
+    .formInput {
+        width: $max-conv-width;
+        float: left;
+        margin-bottom: $small-fix-10 + 2;
+        &:last-of-type {
+            margin-bottom: $null-conv;
+        }
+        .fIlabel {
+            width: $max-conv-width;
+            float: left;
+            font-size: $small-fix-10 + 1;
+            font-weight: bold;
+            padding-left: $small-fix-02;
+            margin-bottom: $small-fix-03;
+        }
+        .fIinput {
+            width: $max-conv-width;
+            height: $small-fix-37;
+            background: $white;
+            border: 1px solid #ddd;
+            float: left;
+            position: relative;
+            padding: $small-fix-10 + 2;
+            &:focus { outline: $null-conv }
+        }
+        .SubmitSett {
+            float: left;
+            padding: $small-fix-07;
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            padding-left: $small-fix-40;
+            padding-right: $small-fix-40;
+            text-transform: uppercase;
+            font-size: $small-fix-10 + 1;
+            font-weight: bold;
+            padding-top: $small-fix-07 + 2;
+            //letter-spacing: $small-fix-01 / 2;
+            &:focus { outline: $null-conv }
+        }
+    }
+}
+
+// KeyFrames
+@mixin keyframes($animation) {
+
+    // KeyFrames For Chrome and Safari
+    @-webkit-keyframes #{$animation} {
+
+        // Content Code Goes here
+        @content;
+    }
+
+    // KeyFrames For FireFox
+    @-moz-keyframes #{$animation} {
+
+        // Content Code Goes Here
+        @content;
+    }
+
+    // KeyFarmes For I.E.
+    @-ms-keyframes #{$animation} {
+
+        // Content Code Goes Here
+        @content;
+    }
+
+    // Normal KeyFrames
+    @keyframes #{$animation} {
+
+        // Content Code Goes Here
+        @content;
+    }
+}
+
+// Records Grid
+@mixin recordGrid {
+    .addRecords_fl {
+        position: relative;
+        width: $max-conv-width;
+        padding-top: $small-fix-07;
+        float: left;
+        .addRecordsBar {
+            position: relative;
+            width: $max-conv-width;
+            height: $small-fix-33;
+            background: #eee;
+            border: 1px solid #ddd;
+            float: left;
+            .AddGridBtn {
+                position: absolute;
+                top: 1px;
+                left: 1px;
+                height: $small-fix-27 + 2;
+                background: $white;
+                padding: $small-fix-03 + 1 + 0.5; // 4.5px
+                padding-left: $small-fix-27 + 1;
+                padding-right: $small-fix-15;
+                padding-top: $small-fix-05 + 1;
+                border: 1px solid #eee;
+                font-size: $small-fix-10 + 1;
+                color: #777;
+                cursor: pointer;
+                @include transition(0.3s);
+                &:before {
+                    content: '\f067';
+                    font-family: FontAwesome;
+                    color: #3d566e;
+                    position: absolute;
+                    top: $small-fix-05 + 0.5;
+                    left: $small-fix-07 + 1;
+                    font-size: $small-fix-13;
+                }
+                &:hover {
+                    background: #3d566e;
+                    color: $white;
+                    &:before {
+                        color: $white;
+                    }
+                }
+            }
+        }
+        .addRecordGrid {
+            position: relative;
+            width: $max-conv-width;
+            float: left;
+            .addRecordGrid_Header, 
+            .addRecordGrid_Body, 
+            .addRecordGrid_Footer {
+                width: $max-conv-width;
+                float: left;
+            }
+            .aRdTh {
+                width: 12.5%;
+                height: $small-fix-30;
+                padding: $small-fix-05;
+                float: left;
+                border: 1px solid #eee;
+                border-right: $null-conv;
+                border-top: $null-conv;
+                background: #f9f9f9;
+                font-size: $small-fix-10;
+                text-transform: uppercase;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                padding-top: $small-fix-07 + 2;
+                color: #777;
+                &:last-child { border-right: 1px solid #eee; }
+            }
+            .addRecordGrid_Body {
+                min-height: $small-fix-20;
+                border-top: $null-conv;
+                .addGtr {
+                    width: $max-conv-width;
+                    position: relative;
+                    float: left;
+                    .aRdTh {
+                        background: transparent;
+                        height: $small-fix-27;
+                        padding-top: $small-fix-05 + 1;
+                        color: #3d566e;
+                    }
+                    .editBtn {
+                        font-size: $small-fix-15;
+                        float: left;
+                        margin: $small-fix-07 + 1;
+                        margin-top: $null-conv;
+                        margin-bottom: $null-conv;
+                        cursor: pointer;
+                        color: #3d566e;
+                        &:hover { color: #ccc; }
+                    }
+                }
+            }
+            .addRecordGrid_Footer {
+                .aRdTh {
+                    height: $small-fix-20;
+                    font-weight: bold;
+                    padding-top: $small-fix-03;
+                }
+            } 
+        }
+    }
+    .RBarPadd {
+        padding: $null-conv;
+    }
+}
+
+// Search Bar
+@mixin searchbar {
+    .SearchBar_Top {
+        height: $small-fix-30 + 1;
+        float: left;
+        margin-top: $small-fix-03 + 1;
+        position: relative; // absolute
+        left: 1%; // 9%
+        display: block;
+        .SearchPicker {
+            height: $small-fix-30 + 1; // 31px
+            position: relative;
+            float: left;
+            border: $small-fix-01 solid #ddd;
+            margin-right: $small-fix-07;
+            .label {
+                padding: $small-fix-07 + 1;
+                padding-left: $small-fix-17;
+                padding-right: $small-fix-17;
+                float: left;
+                color: $black;
+                font-weight: bold;
+                background: #eee;
+                font-size: $small-fix-10 + 2;
+                position: relative; 
+                height: $max-conv-height;
+                letter-spacing: $small-fix-01 / 2; // .5px
+            }
+            .InpSearchPicker {
+                width: 160px;
+                height: $max-conv-height;
+                position: relative;
+                border: $small-fix-01 solid #ddd;
+                border-top: $null-conv;
+                border-bottom: $null-conv;
+                @include border-radius($null-conv);
+                color: $black;
+                font-size: $small-fix-10 + 2;
+                padding: $small-fix-10 + 2;
+                float: left;
+                &:focus {
+                    outline: $null-conv;
+                }
+            }
+            .IconPicker, 
+            .IconArrow {
+                width: $small-fix-30 + 1;
+                height: $max-conv-height;
+                position: relative;
+                float: left;
+                background: #eee;
+            }
+            .IconPicker {
+                &:before {
+                    content: '\f133';
+                    position: absolute;
+                    top: $small-fix-03;
+                    left: $small-fix-05 + 1;
+                    font-family: FontAwesome;
+                    color: #777;
+                    font-size: $small-fix-17 + 1;
+                }
+            }
+            .IconArrow {
+                &:before {
+                    content: '\f0d7';
+                    position: absolute;
+                    top: $small-fix-03;
+                    left: $small-fix-10;
+                    font-family: FontAwesome;
+                    color: #777;
+                    font-size: $small-fix-17 + 1;
+                }
+            }
+            .DropDownSearch, 
+            .DropDownSale {
+                cursor: pointer;
+            }
+        }
+        .DropSearch, 
+        .DropSale {
+            position: absolute;
+            width: $max-conv-width;
+            left: $null-conv;
+            top: 107%;
+            background: $white;
+            border: 1px solid #ddd;
+            z-index: 3;
+            padding: $null-conv;
+            list-style: none;
+            display: none;
+            .DropSearchOPt, 
+            .DropSaleOPt {
+                width: $max-conv-width;
+                padding: $small-fix-07;
+                font-size: $small-fix-10 + 2;
+                color: #777;
+                float: left;
+                cursor: pointer;
+                border-bottom: 1px solid #ddd;
+                padding-left: $small-fix-13;
+                @include transition(.2s);
+
+                &:hover {
+                    background: #eee !important;
+                }
+            }
+        }
+        .getData_Btn {
+            border: $small-fix-01 solid #1fadcf;
+            height: $small-fix-30 + 1;
+            position: relative;
+            background: #1fadcf;
+            color: $white;
+            font-size: $small-fix-10 + 2;
+            text-transform: uppercase;
+            float: left;
+            padding: $null-conv;
+            padding-left: $small-fix-35; // 35px
+            padding-right: $small-fix-20;
+            &:focus {
+                outline: $null-conv;
+            }
+            &:before {
+                content: '\f002';
+                font-family: FontAwesome;
+                color: $white;
+                font-size: $small-fix-17;
+                position: absolute;
+                top: $small-fix-02;
+                left: $small-fix-07 + 2;
+            }
+        }
+        .riskBtn {
+            position: relative;
+            float: left;
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            color: #777;
+            font-size: $small-fix-10 + 1;
+            text-transform: uppercase;
+            padding: $small-fix-05;
+            padding-left: $small-fix-10;
+            padding-right: $small-fix-40; // 27px
+            margin: $small-fix-03;
+            margin-top: $null-conv;
+            cursor: pointer;
+            strong {
+                position: absolute;
+                top: $small-fix-02;
+                right: $small-fix-05 + 1;
+                font-size: $small-fix-15;
+            }
+        }
+        .riskSelect {
+            background: #1dafd0;
+            border: 1px solid #1dafd0; 
+            color: $white;   
+        }
+        .Sapol {
+            padding: $small-fix-07;
+            margin-bottom: $null-conv;
+            padding-right: $small-fix-10;
+            &:first-of-type {
+                margin-left: $small-fix-20;
+            }
+        }
+    }
+
+    .Search_Flr {
+        position: relative;
+        width: 200px;
+        height: $small-fix-30 + 1;
+        float: left;
+        .SearchDrop {
+            position: relative;
+            width: $max-conv-width;
+            height: $max-conv-height;
+            float: left;
+            border: 1px solid #ddd;
+            background: #f9f9f9;
+            #SearchDrop_Id, 
+            #SearchDrop_IdCl {
+                width: 88%;
+                height: $max-conv-height;
+                border: $null-conv;
+                padding: $small-fix-07;
+                font-size: $small-fix-13;
+                padding-top: $small-fix-05;
+                color: #777;
+                cursor: pointer;
+                &:focus {
+                    outline: $null-conv;
+                }
+            }
+            &:before {
+                content: '\f0d7';
+                font-family: FontAwesome;
+                position: absolute;
+                top: $small-fix-03 + 1;
+                right: $small-fix-07 + 1;
+                color: #3d566e;
+                @include transition(.3s);
+            }
+        }
+        .SearchDropRot {
+            &:before{
+                @include transform(-180deg);
+            }
+        }
+        .SearchDrop_Down {
+            width: $max-conv-width;
+            position: absolute;
+            top: $max-conv-top + 2;
+            left: $null-conv;
+            background: $white;
+            border: 1px solid #ddd;
+            z-index: 1000;
+            list-style: none;
+            padding: $null-conv;
+            margin: $null-conv;
+            display: none;
+            .Down_Item {
+                width: $max-conv-width;
+                padding: $small-fix-05;
+                font-size: $small-fix-10 + 2;
+                border-bottom: 1px solid #ddd;
+                color: #3d566e;
+                cursor: pointer;
+                &:last-child {
+                    border-bottom: $null-conv;
+                }
+                &:hover {
+                    background: #f9f9f9;
+                }
+            }
+        }
+    }
+} 
+
+
+// Media Responsive ( Break Points )
+// Desktop Special Break ponts
+@mixin firstrange {
+    @media (min-width: #{$desk-conv-width1400}) and (max-width: #{$desk-conv-width1600}) {
+        // 1400px x 1600px
+        @content;
+    }
+}
+
+@mixin fixedrange1440 {
+    @media (min-width: #{$desk-conv-width1440}) and (max-width: #{$desk-conv-width1440}) {
+        // 1440px x 1440px
+        @content;
+    }
+}
+
+@mixin fixedrange1600 {
+    @media (min-width: #{$desk-conv-width1600}) and (max-width: #{$desk-conv-width1600}) {
+        // 1600px x 1600px
+        @content;
+    }
+}
+
+@mixin mindesktop {
+    @media (min-width: #{$tablet-conv-landwidth}) and (max-width: #{$desk-conv-width1850}) {
+        @content;
+    }
+}
+
+@mixin mediumlaptop {
+    @media (min-width: #{$desk-conv-width1600}) and (max-width: #{$desk-conv-width1850}) {
+        @content;
+    }
+}
+
+@mixin fakescreen {
+    @media (min-width: #{$smart-conv-portwidth}) and (max-width: #{$tablet-conv-landwidth1023}) {
+        @content;
+    }
+}
+
+@mixin mediumtablet {
+    @media (min-width: #{$tablet-conv-landwidth}) and (max-width: #{$deak-conv-width1200}) {
+        @content;
+    }
+}
+
+@mixin mediumlargetablet {
+    @media (min-width: #{$desk-conv-width1440}) and (max-width: #{$desk-conv-width1599}) {
+        // Special Responsive 1440px x 1599px
+        @content;
+    }
+}
+
+@mixin lapTopSmallScreens {
+    @media (min-width: #{$deak-conv-width1200}) and (max-width: #{$desk-conv-width1440}) {
+        // 1200 x 1440
+        @content;
+    }
+}
+
+// SmartPhones
+@mixin smartphonesUmbraco { // Portrait
+	@media (min-width: #{$large-fix-200 + $small-fix-20}) and (max-width: #{$tablet-conv-landwidth - 1}) {
+        // Smartphones 220px x 1023px
+        @content;
+    }
+}
+
+@mixin smartphonesUmbracoland { // Landscape
+	@media (min-width: #{$smart-conv-minland}) and (max-width: #{$tablet-conv-portwidth}) {
+        // Smartphones 480px x 768px
+        @content;
+    }
+}
+
+@mixin tabletsUmbracoIpad { // Landscape
+	@media (min-width: #{$tablet-conv-landwidth}) and (max-width: #{$desk-conv-width1440}) {
+        // Smartphones 1024px x 1440px
+        @content;
+    }
+}
+
+@mixin tabletsUmbraco { // Landscape
+	@media (min-width: #{$tablet-conv-portwidth + 1}) and (max-width: #{$tablet-conv-landwidth - 1}) {
+        // Smartphones 769px x 1023px
+        @content;
+    }
+}
+
+@mixin smartTeleSales {
+    @media (min-width: #{$large-fix-200 + $small-fix-20}) and (max-width: #{$desk-conv-width1440 + 10}) {
+        // Smartphones 220px x 1450px
+        @content;
+    }
+}
+
+@mixin smartphones {
+    @media (min-width: #{$large-fix-200 + $small-fix-20}) and (max-width: #{$large-fix-1000 + $small-fix-25 - 2}) {
+        // Smartphones 220px x 1023px
+        @content;
+    }
+}
+
+@mixin slidephones {
+    @media (min-width: #{$large-fix-300 + $small-fix-40}) and (max-width: #{$tablet-conv-portwidth}) {
+        // Smartphones 340px x 768px
+        @content;
+    }
+}
+
+@mixin slidephonesSmall {
+    @media (min-width: #{$large-fix-200 + $small-fix-20}) and (max-width: #{$large-fix-300 + $small-fix-30 + $small-fix-10 - 1}) {
+        // Smartphones 220px x 339px
+        @content;
+    }
+}
+
+@mixin slideTablets {
+    @media (min-width: #{$large-fix-1000 + $small-fix-20 + 4}) and (max-width: #{$desk-conv-width1600}) {
+        // Smartphones 1024px x 1600px
+        @content;
+    }
+}
+
+// Smartphones Landscape
+@mixin smartland {
+    @media (min-width: #{$smart-conv-minland}) and (max-width: #{$tablet-conv-portwidth}) {
+        // Smartphones 480px x 768px
+        @content;
+    }
+}
+
+// For Viewport Sizes (vh & vw)
+@mixin smartViewPort {
+    @media (min-width: #{$large-fix-200 + $small-fix-20}) and (max-width: #{$laptop-height}) {
+        // 220px x 900px
+        @content;
+    }
+}
+
+// Retina Smartphones Screens
+@mixin retinadeviceSmart {
+    @media only screen and (-webkit-min-device-pixel-ratio: 2), // Chrome And Safari
+    only screen and (min--moz-device-pixel-ratio: 2), // Fire Fox
+    only screen and (-o-min-device-pixel-ratio: 2/1), // Opera
+    only screen and (min-device-pixel-ratio: 2), // Iphones 5, 6, 6 plus, Samsung Galaxy Ratio
+    only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx), only screen and (min-width: #{$large-fix-200 + $small-fix-20}) and (max-width: #{$large-fix-1000 + $small-fix-25 - 2}) {
+        @content;
+    }
+}
+
+// Ipad's ladscape
+@mixin ipadland {
+    @media (min-width: #{$tablet-conv-landwidth}) and (max-width: #{$tablet-conv-landwidth}) {
+        // Smartphones 1024px x 1024px
+        @content;
+    }
+}
+
+@mixin fluid {
+    @media (min-width: #{$smart-qx-portwidth320}) and (max-width: #{$fluid-smart-width}) {
+        // Responsive 320px x 768px
+        @content;
+    }
+}
+
+@mixin bigFluid {
+    @media (min-width: #{$large-fix-1000 * 2 + $large-fix-500}) and (max-width: #{$large-fix-1000 * 4 }) {
+        // Responsive 2500px x 4000px
+        @content;
+    }
+}
+
+// Retina Tablet Screens
+@mixin retinadeviceipad {
+    @media only screen and (-webkit-min-device-pixel-ratio: 2), // Chrome And Safari
+    only screen and (min--moz-device-pixel-ratio: 2), // Fire Fox
+    only screen and (-o-min-device-pixel-ratio: 2/1), // Opera
+    only screen and (min-device-pixel-ratio: 2), // Iphones 5, 6, 6 plus, Samsung Galaxy Ratio
+    only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx), only screen and (min-width: #{$tablet-conv-landwidth}) and (max-width: #{$deak-conv-width1200}) {
+        // 1024px x 1200px
+        @content;
+    }
+}
+
+@mixin deviceTabletN {
+    @media (min-width: #{$tablet-conv-landwidth}) and (max-width: #{$deak-conv-width1200}) {
+        // Smartphones 1024px x 1200px
+        @content;
+    }
+}
+
+// Retina Screens
+@mixin retinascreen {
+    @media only screen and (-webkit-min-device-pixel-ratio: 2), // Chrome And Safari
+    only screen and (min--moz-device-pixel-ratio: 2), // Fire Fox
+    only screen and (-o-min-device-pixel-ratio: 2/1), // Opera
+    only screen and (min-device-pixel-ratio: 2), // Iphones 5, 6, 6 plus, Samsung Galaxy Ratio
+    only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx), only screen and (min-width: #{$smart-qx-portwidth200}) {
+        @content;
+    }
+}
+
+// SmarterCover Mixins
+@mixin inputField($smarterColor: #1fadcf, $SFieldBordColor: #ddd) {
+    .loginField {
+        width: $max-conv-width;
+        padding: $small-fix-15;
+        font-size: $small-fix-20 - 1;
+        background: transparent;
+        color: $smarterColor;
+        border: $null-conv;
+        border-bottom: $small-fix-01 solid $SFieldBordColor;
+        height: $small-fix-50;
+        text-align: center;
+        &:focus {
+            outline: $null-conv;
+        }
+    }
+}
+
+@mixin smarterAutofill($smarterColor: #1fadcf) {
+    input:-webkit-autofill, 
+    input:-webkit-autofill:hover, 
+    input:-webkit-autofill:focus, 
+    input:-webkit-autofill:active {
+        transition: background-color 550000s ease-in-out 0s;
+        color: $smarterColor !important;
+        -webkit-text-fill-color: $smarterColor !important;
+        background-color: transparent !important;
+    }
+}
+
+@mixin loginBtn($smarterColor: #1fadcf) {
+    margin: $null-conv;
+    padding: $small-fix-07 + 1;
+    font-size: $small-fix-15;
+    line-height: $small-fix-30 - 1;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: $small-fix-01 / 2;
+    text-align: center;
+    text-decoration: none;
+    width: $large-fix-400; // 400px
+    position: absolute;
+    left: $null-conv;
+    right: $null-conv;
+    margin-left: auto;
+    margin-right: auto;
+    color: $smarterColor;
+    background: transparent;
+    border: $small-fix-01 solid $smarterColor;
+    @include transition(.1s);
+    &:hover {
+        border: $null-conv;
+        background: $smarterColor;
+        color: $white;
+    }
+}
+
+@mixin remenberMe($square: "\f096", $squareActive: "\f046", $wordColor: #025a87) {
+    .remenber_me {
+        width: auto;
+        height: $small-fix-30;
+        position: absolute;
+        text-align: center;
+        bottom: $small-fix-07 + 2;
+        right: 222px; // 222px
+        span.bigcheck {
+            position: absolute;
+            bottom: $null-conv;
+            margin-left: auto;
+            margin-right: auto;
+            left: $null-conv;
+            right: $null-conv;
+        }
+        span.bigcheck-target {
+            font-family: FontAwesome;
+            color: #025a87;
+            font-size: $small-fix-20;
+            cursor: pointer;
+        }
+        input[type='checkbox'].bigcheck {    
+            display: none;
+        }
+        input[type='checkbox'].bigcheck + span.bigcheck-target:after {
+            content: $square; 
+        }
+        input[type='checkbox'].bigcheck:checked + span.bigcheck-target:after {
+            content: $squareActive;
+        }
+        label.bigcheck { 
+            width: $null-conv;
+            height: $null-conv;
+        }
+        .remenber_me_word {
+            margin-right: 111px; // 111px
+            position: relative;
+            top: $small-fix-07;
+            text-transform: uppercase;
+            font-size: $small-fix-10 + 1;
+            letter-spacing: $small-fix-01;
+            color: $wordColor;
+        }
+    }
+}
+
+@mixin smarterBtnHeader($smarterColor: #1fadcf) {
+    .k-button {
+        height: $small-fix-40;
+        background: $smarterColor;
+        border: $null-conv;
+        color: $white;
+        text-transform: uppercase;
+        padding-left: $small-fix-50 + $small-fix-05;
+        padding-right: $small-fix-50 + $small-fix-05;
+        border: $small-fix-01 solid $smarterColor;
+        @include transition($Sec-07);
+        &:hover {
+            background: #025a87;
+            border: $small-fix-01 solid #025a87;
+        }
+        &:focus { outline: $null-conv; }
+    }
+}
+
+@mixin mainTabs($smarterColor: #1fadcf) {
+    .mainTab {
+        position: relative;
+        padding: $small-fix-80; // 80px
+        padding-bottom: $small-fix-10 + 1;
+        padding-top: $small-fix-10 + 2;
+        padding-left: $small-fix-20;
+        color: $primary-color;
+        font-size: $small-fix-10 + 2;
+        letter-spacing: $small-fix-01 / 2; // 0.5px
+        background: #f9f9f9;
+        border: $small-fix-01 solid $gray-smooth;
+        text-decoration: none;
+        display: inline-block;
+        margin: $small-fix-02;
+        @include border-radius($small-fix-50);
+        .tabCount {
+            position: absolute;
+            right: $small-fix-13;
+            top: $small-fix-03 + 1;
+            font-size: $small-fix-20 + 2;
+            font-weight: bold;
+        }
+    }
+    .selected {
+        background: $smarterColor;
+        color: $white;
+        border: $small-fix-01 solid $smarterColor;
+    }
+}
+
+@mixin simpleswitch($slideBack: $gray-smooth, $slideCheckedBack: #0A9A7A) {
+    .switch_prod {
+        float: left;
+        width: $small-fix-20;
+        height: $small-fix-20;
+        margin-right: $small-fix-10;
+        position: relative;
+        top: $null-conv;
+        .switch {
+            top: $null-conv;
+            width: $small-fix-20 + 2;
+            height: $small-fix-20 + 2; 
+        }
+        .slider {
+            background: $slideBack;
+            left: $small-fix-13 + 1;
+            height: $small-fix-20;
+            width: $small-fix-20;
+            @include border-radius($max-conv-width / 2);
+            border: $small-fix-02 solid #ddd;
+            &:before {
+                background: transparent;
+                position: absolute;
+                content: "";
+                height: $small-fix-15 + 1; 
+                width: $small-fix-15 + 1;
+                left: $small-fix-02;
+                top: $small-fix-02;
+                @include transition($Sec-07);
+                z-index: 300;
+                @include border-radius($max-conv-width / 2);
+                cursor: pointer;
+            }
+        }
+    }
+    input:checked + .slider {
+        &:before {
+            background: $slideCheckedBack;
+        }
+    }
+    input:focus + .slider {
+        box-shadow: $null-conv $null-conv $small-fix-01 #0A9A7A;
+    }
+    input:checked + .slider:before {
+        @include transformtranslatex($null-conv);
+    }
+}
+@mixin inpTypeText() {
+    input[type="text"] { 
+        width: $null-conv; 
+        height: $null-conv; 
+        padding: $null-conv; 
+        border: $null-conv; 
+    }
+}
+@mixin tableGridWidth() {
+    .table01 {
+        width: $double-table-max-05 + 0.91; // 1.91%
+        @include inpTypeText();
+    }
+    .table02 {
+        width: $table-max-2; // 2%
+        @include inpTypeText();
+    }
+    .table05 {
+        width: $table-max-5; // 5%
+    }
+    .table06 {
+        width: $table-max-5 + 1 + 0.665; // 6.665%
+    }
+    // .table07 { 
+    //     width: $table-max-7 + 0.75; // 7.75%
+    // }
+    .table07 {
+        width: $table-max-4 + 0.896; // 4.896%
+    }
+    .table07-95 {
+        width: $table-max-7 + 0.95; // 7.95%
+    }
+    .table07-none {
+        @include inpTypeText();  
+    }
+}
+
+// SmarterCover Media
+@mixin lapTopBigScreen {
+    @media (min-width: #{$desk-conv-width1600}) and (max-width: #{$desk-conv-width1850}) {
+        // Smartphones 1600px x 1850px
+        @content;
+    }
+}
+
+@mixin ipadSmarter {
+    @media (min-width: #{$tablet-conv-landwidth}) and (max-width: #{$deak-conv-width1200}) {
+        // Smartphones 1024px x 1200px
+        @content;
+    }
+}
+
+@mixin landScapeSlide {
+     @media (min-width: #{$large-fix-500}) and (max-width: #{$tablet-conv-portwidth}) {
+        // Smartphones 500px x 768px
+        @content;
+    }
+}
+
+// Focus Simple
+@mixin SimpleFocus {
+    background: $white;
+    @include border-radius($small-fix-05);
+    border-bottom: $small-fix-01 solid #eee;
+    border-left: $small-fix-01 solid #eee;
+    color: #333;
+}
+@mixin flashBackBefore {
+    content: '';
+    position: absolute;
+    width: $max-conv-width;
+    height: $max-conv-height;
+    top: $null-conv;
+    left: $null-conv;
+    background: $rgba-black-02;
+    opacity: $null-conv;
+    @include transition($Sec-08);
+    @include tranformscale($null-conv);
+}
+
+// Date of Birth
+@mixin birth-child {
+    background: rgba(31, 173, 207, 0.15);
+    height: $small-fix-30;
+    float: left;
+    text-align: center;
+    padding: $small-fix-07 + 2;
+    font-size: $small-fix-10 + 1;
+    color: #025a87;
+    font-weight: bold;
+    margin: $small-fix-01 / 2; // 0.5px
+    cursor: pointer;
+}
+
+// Mini Dashboard ToolTip
+@mixin mdashtip($valuetop, $valuewidth) {
+    opacity: 1;
+    z-index: 2;
+    width: #{$valuewidth}; // 65px
+    padding: $small-fix-05 + 0.5; // 5.5px
+    padding-top: $small-fix-03 + 0.5; // 3.5px
+    font: $small-fix-07 + 2 Arial; // 9px
+    top: #{$valuetop}; // -20px
+}
+
+// Mini Dasboard Width Logic Inside Element
+@mixin mdashtipWidIn {
+    .in-sourcePanel {
+        ul {
+            li {
+                padding-top: $small-fix-10;
+                padding: $small-fix-10;
+            }
+            .dispVal {
+                padding-top: $null-conv;
+            }
+        }
+    }
+}
+
+// Import Components
+$importedmodules: () !default;
+
+@mixin thisComponent($name) {
+    @if (index($importedmodules, $name) == null) {
+        $importedmodules: append($importedmodules, $name) !global;
+        @content;
+    }
+}
