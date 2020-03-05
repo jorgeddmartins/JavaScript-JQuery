@@ -555,7 +555,7 @@ $(function() {
 					$.ajax({
 						type: 'GET',
 						cache: false,
-						url: '/assets/js/Telesales/GridTeleSalesCalendar.json',
+						url: 'datePicker.json',
 						datatype: 'json',
 
 						success: function(gridtelecalendata) { $(document).GlCalendar(gridtelecalendata) }
@@ -1580,16 +1580,15 @@ $(function() {
 
 				// Add Class on Date Picker Drop Down
 				$('.DatePickerDrop').addClass('caleLeads');
-
+				
+				// Elements To Remove
 				$('#hidePickHour, #hiddenId1, #hiddenId2, #hiddenId3').remove();
 				
 				// Close Button Injection
 				$('.TeleSalesGridCalendar .TeleGridDays').before(settingsCal.closeBt);
-
-				$(document).on('click', '.closeC', function() { 
 				
-					$(settingsCal.TeleCalenGr).hide(); 
-				});
+				// Calendar Hides when click on HTML document
+				$(document).on('click', '.closeC', function() { $(settingsCal.TeleCalenGr).hide(); });
 				
 				// Save Button ToolTip MouseOver
 				$(document).on('mouseover', '.closeC, .closeCsave', function() {$('.closeC_Tip').css({ display: 'flex' }); });
@@ -1603,8 +1602,8 @@ $(function() {
 				// Save Button TooTip MouseLeave
 				$(document).on('mouseleave', '.closeCsave', function() { $('.closeC_TipSave').hide(); });
 				
+				// On MouseOver Event on these Elements, HTML document removes Class To close Calendar
 				$(document).on('mouseover', '#datetimepicker3, #datetimepicker2', function() { $('html').removeClass('closeCalend'); }); 
-			
 			}
 		});
 		
@@ -1655,7 +1654,8 @@ function MonthTransf() {
 
 	// let dateHourPick = '#datetimepicker3';
 	let dateHourPick = '.valTh';
-
+	
+	// Replacing Numeric Months
 	$(dateHourPick).val(function() { 
 		return $(this).val()
 			.replace('January', '01')
@@ -1673,7 +1673,7 @@ function MonthTransf() {
 	});
 }
 
-// ToDo: Hack: I don't think there is a number version of month, so will translate string month to 'number' month
+// Convert Months
 function GetNumericMonth(myMonth) {
     switch (myMonth) {
         case 'January':
@@ -1715,14 +1715,12 @@ function GetNumericMonth(myMonth) {
 }
 
 function MonthDrop() {
-
 	$('.ThisMonthTopfloor').hide();
 	$('.dyItem').each(function() { 
 
 		if($(this).html() != '') { $(this).attr({ 'data-date': $(this).html() }) 
 
 		} else { $(this).removeAttr('data-date')}
-
 	});
 }
 
@@ -1750,7 +1748,6 @@ function AddPlusYear(year, toYear, nItems) {
 		$('.dropYr:nth-child(n+' + nItems + ')').remove();
 
 		MatchYear('selctedDY', $('.ThisYearTop'));
-
 	});
 }
 
