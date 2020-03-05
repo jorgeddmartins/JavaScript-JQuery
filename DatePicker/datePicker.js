@@ -272,23 +272,32 @@ $(function() {
 
 			// All Propreties
 			calenDrop: 'DatePickerDrop',
-
+			
+			// Form Hidden Class
 			avaiformHidden: 'AvailableFromidden',
-
+			
+			// Date of Birth Class
 			dObHidden: 'PdOb',
-
+			
+			// Z-Index Class for the Calendar
 			zcalndClass: 'z_Calendar',
-
-			TeleCalenGr: '.TeleSalesGridCalendar',
-
+			
+			// Calendar Main Class
+			TeleCalenGr: '.GridCalendar',
+			
+			// Calendar Dynamic Class If needed
 			CalGrid: '.CGrid_',
-
+			
+			// First Input ID
 			OptCalend: 'datetimepicker3',
-
+			
+			// Second Input ID
 			DateTPick: 'datetimepicker2',
-
+			
+			// Hiden ID
 			hiidenId: '#hiddenId',
 			
+			// Class To Inject Years on the Calendar Header
 			YTop: '.ThisYearTop'
 		};
 
@@ -603,12 +612,9 @@ $(function() {
 							
 							// OPens PopUp TeleSales Calendar == 1.Top, 2.Left, 3.Right
 							const input1 = id == settingsCal.OptCalend ? telSHourPickerCal('45px', 'auto', '-110px') : '';
-							//const input1 = id == settingsCal.OptCalend ? telSHourPickerCal('473px', 'auto', '74px') : '';
 							
 							// Opens TeleSales Hour Calendar == 1.Top, 2.Left, 3.Right
 							const input2 = id == settingsCal.DateTPick ? datetimepicker2Cal('-6px', 'auto', '-47px') : '';
-							//const input2 = id == settingsCal.DateTPick ? datetimepicker2Cal('421px', 'auto', '154px') : '';
-							
 						});
 					}
 					$(document).OpenCalendGl();
@@ -717,7 +723,7 @@ $(function() {
 					}
 					// End TeleSales Calendar
 
-					// Dragging The Calendar
+					// Calendar Drags
 					if(settingsCal.dragg == true) { CalenDragg(); }
 
 					function CalenDragg() {
