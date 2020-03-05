@@ -439,9 +439,3 @@ $(function() {
 	dt.colorPicker();
 
 });
-
-// Removes All Classes with prex "color"
-// $('.' + cpsettings.selIdi).removeClass(function(index, css) {
-
-//     return (css.match (/\bcolor\S+/g) || []).join(' ');
-// });
