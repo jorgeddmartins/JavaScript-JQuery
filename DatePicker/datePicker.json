@@ -1,0 +1,154 @@
+{
+
+	"GirdHour": [
+
+		{
+			"hourSet": "00:00"
+		},
+		{
+			"hourSet": "01:00"
+		},
+		{
+			"hourSet": "02:00"
+		},
+		{
+			"hourSet": "03:00"
+		},
+		{
+			"hourSet": "04:00"
+		},
+		{
+			"hourSet": "05:00"
+		},
+		{
+			"hourSet": "06:00"
+		},
+		{
+			"hourSet": "07:00"
+		},
+		{
+			"hourSet": "08:00"
+		},
+		{
+			"hourSet": "09:00"
+		},
+		{
+			"hourSet": "10:00"
+		},
+		{
+			"hourSet": "11:00"
+		},
+		{
+			"hourSet": "12:00"
+		},
+		{
+			"hourSet": "13:00"
+		},
+		{
+			"hourSet": "14:00"
+		},
+		{
+			"hourSet": "15:00"
+		},
+		{
+			"hourSet": "16:00"
+		},
+		{
+			"hourSet": "17:00"
+		},
+		{
+			"hourSet": "18:00"
+		},
+		{
+			"hourSet": "19:00"
+		},
+		{
+			"hourSet": "20:00"
+		},
+		{
+			"hourSet": "21:00"
+		},
+		{
+			"hourSet": "22:00"
+		},
+		{
+			"hourSet": "23:00"
+		}
+	],
+
+	"secSet": [
+
+		{
+			"secondsSet": "00"
+		},
+		{
+			"secondsSet": "05"
+		},
+		{
+			"secondsSet": "10"
+		},
+		{
+			"secondsSet": "15"
+		},
+		{
+			"secondsSet": "20"
+		},
+		{
+			"secondsSet": "25"
+		},
+		{
+			"secondsSet": "30"
+		},
+		{
+			"secondsSet": "35"
+		},
+		{
+			"secondsSet": "40"
+		},
+		{
+			"secondsSet": "45"
+		},
+		{
+			"secondsSet": "50"
+		},
+		{
+			"secondsSet": "55"
+		}
+	],
+
+	"baseYears": [
+
+		{
+			"year": 2000
+		},
+		{
+			"year": 2010
+		},
+		{
+			"year": 2020
+		},
+		{
+			"year": 2030
+		},
+		{
+			"year": 2040
+		},
+		{
+			"year": 2050
+		},
+		{
+			"year": 2060
+		},
+		{
+			"year": 2070
+		}
+	],
+
+	"rotationLimit": [
+
+		{
+			"rotLimit": 30,
+			"manualQueue": 100
+		}
+	]
+}
