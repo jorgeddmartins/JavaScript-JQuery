@@ -1,0 +1,128 @@
+* {
+	box-sizing: border-box;
+}
+
+body {
+	font-family: Arial, sans-serif;
+}
+
+section {
+	position: relative;
+	background: #f6f6f6;
+	padding: 26px 26px 26px 0;
+	width: 1026px;
+	height: 473px;
+	margin: 0 auto 20px;
+	overflow: hidden;
+}
+
+section:last-child {
+	margin: 0 auto 0;
+}
+
+.slideContainer {
+	position: absolute;
+	left: 0;
+	top: 26px;
+	width: max-content;
+	padding-bottom: 26px;
+}
+
+.slideContainer .dummy_card {
+	position: relative;
+	width: 308px;
+	min-height: 370px;
+	background: #fff;
+	margin: 0 0 0 26px;
+	float: left;
+	-webkit-box-shadow: 0 0 3px 0 rgba(50, 50, 50, 0.45);
+	-moz-box-shadow: 0 0 3px 0 rgba(50, 50, 50, 0.45);
+	box-shadow: 0 0 3px 0 rgba(50, 50, 50, 0.45);
+}
+
+.dummy_card img {
+	width: 100%;
+}
+
+.dummy_card .tl_Info {
+	float: left;
+	width: 100%;
+}
+
+.dummy_card .tl_Info .ghlogo {
+	width: 42px;
+	float: left;
+	margin-right: 10px;
+}
+
+.dummy_card h2 {
+	font-size: 23px;
+	font-weight: bold;
+	color: #3a3a3a;
+	margin: 0;
+}
+
+.dummy_card .subtitle, 
+.dummy_card .text {
+	font-size: 12px;
+	color: #adadad;
+}
+
+.dummy_card .subtitle {
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+.dummy_card .text {
+	margin-top: 26px;
+	margin-bottom: 26px;
+	line-height: 1.583;
+	display: inline-block;
+}
+
+.dummy_card .Lmore {
+	font-size: 16px;
+	font-weight: bold;
+	color: #2da936;
+	text-decoration: none;
+}
+
+.blk_Info {
+	position: relative;
+	width: 100%;
+	float: left;
+	padding: 17px;
+	padding-bottom: 26px;
+}
+
+.btn_Stage {
+	position: absolute;
+	width: 100%;
+	float: left;
+	text-align: center;
+	bottom: 20px;
+	left: 0;
+}
+
+.arrow {
+	position: relative;
+	cursor: pointer;
+	color: #2da936;
+	font-size: 33px;
+	margin-right: 10px;
+	border: 0;
+    background: transparent;
+}
+.arrow:focus {
+	outline: none;
+}
+
+.prev:before, 
+.prev2:before {
+	content: "\f104";
+}
+
+.next:before, 
+.next2:before {
+	content: "\f105";
+}
